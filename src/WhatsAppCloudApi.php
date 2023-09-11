@@ -341,6 +341,66 @@ class WhatsAppCloudApi
     }
 
     /**
+     * Get Phone Numbers
+     *
+     * @return Response
+     *
+     * @throws Response\ResponseException
+     */
+    public function phoneNumbers(): Response
+    {
+        $request = new Request\PhoneNumbersRequest\PhoneNumbersRequest(
+            $this->app->accessToken(),
+            $this->app->businessId(),
+            $this->timeout
+        );
+
+        return $this->client->phoneNumbers($request);
+    }
+
+    /**
+     * Get Business Profile
+     *
+     * @param  string    $fields WhatsApp profile fields.
+     *
+     * @return Response
+     *
+     * @throws Response\ResponseException
+     */
+    public function businessProfile(string $fields): Response
+    {
+        $request = new Request\BusinessProfileRequest\BusinessProfileRequest(
+            $fields,
+            $this->app->accessToken(),
+            $this->app->fromPhoneNumberId(),
+            $this->timeout
+        );
+
+        return $this->client->businessProfile($request);
+    }
+
+    /**
+     * Update Business Profile
+     *
+     * @param  array    $information Whatsapp profile information.
+     *
+     * @return Response
+     *
+     * @throws Response\ResponseException
+     */
+    public function updateBusinessProfile(array $information): Response
+    {
+        $request = new Request\BusinessProfileRequest\UpdateBusinessProfileRequest(
+            $information,
+            $this->app->accessToken(),
+            $this->app->fromPhoneNumberId(),
+            $this->timeout
+        );
+
+        return $this->client->updateBusinessProfile($request);
+    }
+
+    /**
      * Returns the Facebook Whatsapp Access Token.
      *
      * @return string
